@@ -5,6 +5,16 @@
 
 #define SLAVE_ADDRESS 0x04
 
+// Command ID's and Specs
+//
+// 0X00 - reserved
+// 0X01 - Set 1 wire pins (pin)
+// 0X02 - Set Heater Pin (ID, Pin)
+// 0X03 - GetTemperature (address)
+// 0X04 - Keep At Defined Temperature (Heater_ID, Temp, Milliseconds)
+// 0X05 - Turn Heater ON/OFF (ID, ON/OFF)
+// 0X06 - 
+// 0X10 - Heartbit
 U8GLIB_ST7920_128X64_1X u8g(8, 9, 10);	// SPI Com: SCK = en = 18, MOSI = rw = 16, CS = di = 17
 
 char command[10]; //command buffer
@@ -77,10 +87,25 @@ void sendData(){
 
 void executeCommand(char commandid, char* args)
 {
-  if (commandid== 0X04)
+  if (commandid== 0X01)
+  {
+    OneWireInit(int (args[0]));
+  }
+  else if (commandid== 0X02)
+  {
+    SetHeater( int(args[0], int (args[1]));
+  }
+  else if (commandid== 0X03)
   {
     strcpy( modeText, args);
-
-
   }
+}
+
+void OneWireInit(int pin)
+{
+  
+}
+
+void SetHeater(int id, int pin)
+{
 }
